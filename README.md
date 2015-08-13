@@ -1,0 +1,2 @@
+# aur
+PKGBUILD for AUR
