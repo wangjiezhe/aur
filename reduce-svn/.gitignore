@@ -1,0 +1,10 @@
+# Vim
+*~
+*.swp
+
+# Makepkg
+*.pkg.tar.xz
+*.tar.xz
+/pkg/
+/src/
+/reduce
