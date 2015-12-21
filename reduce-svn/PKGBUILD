@@ -34,6 +34,7 @@ prepare() {
   rm -rf "${srcdir}/${_pkgbase}-build"
   svn export "${srcdir}/${_pkgbase}" "${srcdir}/${_pkgbase}-build"
   #svn export --force "${srcdir}/${_pkgbase}" "${srcdir}/${_pkgbase}-build"
+
   cd "${srcdir}/${_pkgbase}-build"
   patch -Np0 -i "${srcdir}/qreduce-file-location.patch"
 }
