@@ -20,7 +20,7 @@ optdepends=('transfig: convert images using fig2ps'
 makedepends=('ghostscript')
 source=(ftp://ftp.texmacs.org/TeXmacs/tmftp/source/TeXmacs-${pkgver}-src.tar.gz)
 install=texmacs.install
-options=('!emptydirs')
+options=('!emptydirs' '!ccache')
 sha1sums=('77a3d292934ebb288c7f8cb77e15f168012bbf4c')
 
 prepare() {
@@ -30,9 +30,9 @@ prepare() {
     TeXmacs/misc/inkscape_extension/texmacs_reedit.py
   sed -i 's/"python"/"python2"/' plugins/python/progs/init-python.scm
   sed -i '/^LDPATH/d' src/makefile.in
-  sed -i -e 's/"guile18"/"guile1.8"/g' \
-         -e 's/guile18-config/guile-config1.8/g' \
-         configure
+  #sed -i -e 's/"guile18"/"guile1.8"/g' \
+  #       -e 's/guile18-config/guile-config1.8/g' \
+  #       configure
 
  # Don't generate icon-cache and mime-database (namcap tells that they should not be in a package)
   sed -i '/update-mime-database/d' Makefile.in
@@ -51,6 +51,7 @@ build() {
   ./configure --prefix=/usr \
               --mandir=/usr/share/man \
               --libexecdir=/usr/lib
+  #sed -i 's/guile1.8/guile18/g'  src/System/tm_configure.hpp
   make
 }
 
