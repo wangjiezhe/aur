@@ -1,8 +1,8 @@
 # Maintainer: Andrzej Giniewicz <gginiu@gmail.com>
 
 pkgname=gdcm
-pkgver=2.6.2
-pkgrel=3
+pkgver=2.6.3
+pkgrel=1
 pkgdesc='a C++ library for DICOM medical files'
 arch=('i686' 'x86_64')
 url='http://gdcm.sourceforge.net'
@@ -15,7 +15,7 @@ source=(
   "http://sourceforge.net/projects/gdcm/files/gdcm%202.x/GDCM%20${pkgver}/gdcm-${pkgver}.tar.bz2"
   'gdcm-vtk6.patch'
 )
-md5sums=('2d56a7f7978bb5103b9732ab46728dd9'
+md5sums=('52d398f48e672f1949914f6b3e2d528c'
          'b1f32c95b3e5414c65966732f535edd8')
 
 prepare() {
