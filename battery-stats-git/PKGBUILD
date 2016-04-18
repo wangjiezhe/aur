@@ -13,7 +13,7 @@ conflicts=('battery-stats')
 source=("${_pkgname}::git+https://github.com/petterreinholdtsen/battery-stats.git"
         "battery-stats-collector.service")
 sha256sums=('SKIP'
-            '6f4dc0185c18674f37bcebcab300c00abd9875bdfcd54b98d8e71ff6dd516a16')
+            '458937c0f81d21b45a6687a6a5155a3a3866d46d65203fb174ccc020fc612edf')
 
 pkgver() {
   cd ${_pkgname}
