@@ -1,0 +1,53 @@
+# Maintainer: wangjiezhe <wangjiezhe AT yandex DOT com>
+
+_pkgname=ChezScheme
+pkgname=chez-sheme-git
+_pkgver=9.4
+pkgver=r8.7427dda
+pkgrel=1
+pkgdesc="Chez Scheme, thread"
+arch=(i686 x86_64)
+url="https://github.com/cisco/ChezScheme"
+license=('APL')
+groups=()
+depends=()
+makedepends=('git' 'ncurses' 'libx11' 'xproto')
+provides=(chez-scheme)
+conflicts=(petite-chez-scheme)
+replaces=(petite-chez-scheme)
+backup=()
+options=()
+install=
+source=("$_pkgname::git+https://github.com/cisco/ChezScheme.git")
+md5sums=('SKIP')
+noextract=()
+
+pkgver() {
+  cd "$_pkgname"
+  ( set -o pipefail
+    git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  )
+}
+
+prepare() {
+  cd "$_pkgname"
+  sed -i "s/ln -sf/ln -f/g" makefiles/Mf-install.in
+}
+
+build() {
+  cd "$_pkgname"
+  ./configure --installprefix=/usr --temproot=$pkgdir --threads
+  make
+}
+
+package() {
+  cd "$_pkgname"
+  make DESTDIR="$pkgdir/" install
+  mv $pkgdir/usr/bin/scheme $pkgdir/usr/bin/chez-scheme
+  mv $pkgdir/usr/share/man/man1/scheme.1.gz $pkgdir/usr/share/man/man1/chez-scheme.1.gz
+  mv $pkgdir/usr/lib/csv${_pkgver}/ta6le/scheme.boot $pkgdir/usr/lib/csv${_pkgver}/ta6le/chez-scheme.boot
+  mv $pkgdir/usr/lib/csv${_pkgver}/ta6le/scheme.h $pkgdir/usr/lib/csv${_pkgver}/ta6le/chez-scheme.h
+}
+
+# vim:set ts=2 sw=2 et:
