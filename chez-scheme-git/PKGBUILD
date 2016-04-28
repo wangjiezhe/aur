@@ -3,7 +3,7 @@
 _pkgname=ChezScheme
 pkgname=chez-sheme-git
 _pkgver=9.4
-pkgver=r8.7427dda
+pkgver=r13.f933d5d
 pkgrel=1
 pkgdesc="Chez Scheme, thread"
 arch=(i686 x86_64)
