@@ -3,9 +3,9 @@
 _pkgname=ChezScheme
 pkgname=chez-sheme-git
 _pkgver=9.4
-pkgver=r13.f933d5d
+pkgver=r15.45c7bcc
 pkgrel=1
-pkgdesc="Chez Scheme, thread"
+pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
 url="https://github.com/cisco/ChezScheme"
 license=('APL')
@@ -43,11 +43,7 @@ build() {
 
 package() {
   cd "$_pkgname"
-  make DESTDIR="$pkgdir/" install
-  mv $pkgdir/usr/bin/scheme $pkgdir/usr/bin/chez-scheme
-  mv $pkgdir/usr/share/man/man1/scheme.1.gz $pkgdir/usr/share/man/man1/chez-scheme.1.gz
-  mv $pkgdir/usr/lib/csv${_pkgver}/ta6le/scheme.boot $pkgdir/usr/lib/csv${_pkgver}/ta6le/chez-scheme.boot
-  mv $pkgdir/usr/lib/csv${_pkgver}/ta6le/scheme.h $pkgdir/usr/lib/csv${_pkgver}/ta6le/chez-scheme.h
+  make DESTDIR="$pkgdir/" install InstallSchemeName=chez-scheme
 }
 
 # vim:set ts=2 sw=2 et:
