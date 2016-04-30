@@ -3,24 +3,18 @@
 _pkgname=ChezScheme
 pkgname=chez-sheme-git
 _pkgver=9.4
-pkgver=r15.45c7bcc
+pkgver=r16.63a9793
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
 url="https://github.com/cisco/ChezScheme"
 license=('APL')
-groups=()
-depends=()
 makedepends=('git' 'ncurses' 'libx11' 'xproto')
 provides=(chez-scheme)
 conflicts=(petite-chez-scheme)
 replaces=(petite-chez-scheme)
-backup=()
-options=()
-install=
 source=("$_pkgname::git+https://github.com/cisco/ChezScheme.git")
 md5sums=('SKIP')
-noextract=()
 
 pkgver() {
   cd "$_pkgname"
