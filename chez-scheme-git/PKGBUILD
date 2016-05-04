@@ -2,8 +2,7 @@
 
 _pkgname=ChezScheme
 pkgname=chez-sheme-git
-_pkgver=9.4
-pkgver=r16.63a9793
+pkgver=r27.eb2b1fd
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
@@ -13,11 +12,11 @@ makedepends=('git' 'ncurses' 'libx11' 'xproto')
 provides=(chez-scheme)
 conflicts=(petite-chez-scheme)
 replaces=(petite-chez-scheme)
-source=("$_pkgname::git+https://github.com/cisco/ChezScheme.git")
+source=(${_pkgname}::git+https://github.com/cisco/ChezScheme.git)
 md5sums=('SKIP')
 
 pkgver() {
-  cd "$_pkgname"
+  cd ${_pkgname}
   ( set -o pipefail
     git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
@@ -25,19 +24,45 @@ pkgver() {
 }
 
 prepare() {
-  cd "$_pkgname"
+  cd ${_pkgname}
   sed -i "s/ln -sf/ln -f/g" makefiles/Mf-install.in
+  sed -i "s/\\\INSERTREVISIONMONTHSPACEYEAR/April 2016/g" csug/{csug,copyright}.stex
+  sed -i "s/ scheme / chez-scheme /g" csug/Makefile
 }
 
 build() {
-  cd "$_pkgname"
+  cd ${_pkgname}
   ./configure --installprefix=/usr --temproot=$pkgdir --threads
+  make
+
+  cd csug
+  make Scheme=/usr/bin/chez-scheme
+
+  cd ../release_notes
   make
 }
 
 package() {
-  cd "$_pkgname"
-  make DESTDIR="$pkgdir/" install InstallSchemeName=chez-scheme
+  cd ${_pkgname}
+  make DESTDIR=${pkgdir} install InstallSchemeName=chez-scheme
+
+  docdir=${pkgdir}/usr/share/doc/chez-scheme
+  install -D -t ${docdir} \
+          csug/csug.pdf release_notes/release_notes.pdf
+  install -D -t ${docdir}/html \
+          release_notes/release_notes.html
+  install -D -t ${docdir}/html/csug \
+          csug/{*.html,*.css}
+  install -D -t ${docdir}/html/csug/canned \
+          csug/canned/*
+  install -D -t ${docdir}/html/csug/gifs \
+          csug/gifs/*.gif
+  install -D -t ${docdir}/html/csug/math/csug \
+          csug/math/csug/*.gif
+  ln -f ${docdir}/html/csug/{csug,index}.html
+
+  # cd csug
+  # make installdir=${docdir}/html install
 }
 
 # vim:set ts=2 sw=2 et:
