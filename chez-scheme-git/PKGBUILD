@@ -2,7 +2,7 @@
 
 _pkgname=ChezScheme
 pkgname=chez-sheme-git
-pkgver=r27.eb2b1fd
+pkgver=9.4.0.gf81024e
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
@@ -17,10 +17,7 @@ md5sums=('SKIP')
 
 pkgver() {
   cd ${_pkgname}
-  ( set -o pipefail
-    git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
-    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-  )
+  git describe --tags --long | sed 's/^v//g;s/-/./g'
 }
 
 prepare() {
@@ -60,9 +57,6 @@ package() {
   install -D -t ${docdir}/html/csug/math/csug \
           csug/math/csug/*.gif
   ln -f ${docdir}/html/csug/{csug,index}.html
-
-  # cd csug
-  # make installdir=${docdir}/html install
 }
 
 # vim:set ts=2 sw=2 et:
