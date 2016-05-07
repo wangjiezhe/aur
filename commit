@@ -2,23 +2,29 @@
 
 usage()
 {
-	echo "usage: $(basename $0) pkgname [version]" >&2
+        echo "usage: $(basename $0) pkgname [version] [release]" >&2
 }
 
 if test $# -lt 1 -o $# -gt 2
 then
-	usage
-	exit 1
+        usage
+        exit 1
 fi
 
 pkgname=$1
 version=$2
+release=$3
 
 if test -z "$version"
 then
-	version=$(sed -n 's/^pkgver=\([0-9.]\+\)/\1/p' $pkgname/PKGBUILD)
+        version=$(sed -n 's/^pkgver=\([0-9.]\+\)/\1/p' $pkgname/PKGBUILD)
+fi
+
+if test -z "$release"
+then
+        release=$(sed -n 's/^pkgrel=\([0-9]\+\)/\1/p' $pkgname/PKGBUILD)
 fi
 
 
 git add $pkgname
-git commit -m "$pkgname $version"
+git commit -m "$pkgname $version-$release"
