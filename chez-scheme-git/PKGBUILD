@@ -1,8 +1,8 @@
 # Maintainer: wangjiezhe <wangjiezhe AT yandex DOT com>
 
 _pkgname=ChezScheme
-pkgname=chez-sheme-git
-pkgver=9.4.1.g65df1d1
+pkgname=chez-scheme-git
+pkgver=9.4.13.gd74078a
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
