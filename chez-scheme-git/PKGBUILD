@@ -2,13 +2,15 @@
 
 _pkgname=ChezScheme
 pkgname=chez-scheme-git
-pkgver=9.4.13.gd74078a
+_pkgver=9.4.1
+pkgver=9.4.1.r61.f0c9a4f
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
 url="https://github.com/cisco/ChezScheme"
 license=('APL')
 makedepends=('git' 'ncurses' 'libx11' 'xproto')
+options=('!ccache')
 provides=(chez-scheme)
 conflicts=(petite-chez-scheme)
 replaces=(petite-chez-scheme)
@@ -17,26 +19,21 @@ md5sums=('SKIP')
 
 pkgver() {
   cd ${_pkgname}
-  git describe --tags --long | sed 's/^v//g;s/-/./g'
+  # git describe --tags --long | sed 's/^v//g;s/-/./g'
+  printf "${_pkgver}.r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 prepare() {
   cd ${_pkgname}
   sed -i "s/ln -sf/ln -f/g" makefiles/Mf-install.in
-  sed -i "s/\\\INSERTREVISIONMONTHSPACEYEAR/April 2016/g" csug/{csug,copyright}.stex
-  sed -i "s/ scheme / chez-scheme /g" csug/Makefile
+  sed -i "s/\\\INSERTREVISIONMONTHSPACEYEAR/May 2016/g" csug/{csug,copyright}.stex
 }
 
 build() {
   cd ${_pkgname}
   ./configure --installprefix=/usr --temproot=$pkgdir --threads
   make
-
-  cd csug
-  make Scheme=/usr/bin/chez-scheme
-
-  cd ../release_notes
-  make Scheme=/usr/bin/chez-scheme
+  make docs
 }
 
 package() {
