@@ -1,0 +1,12 @@
+post_install() {
+    feeluown-genicon
+    feeluown-install-dev
+}
+
+post_upgrade() {
+    feeluown-genicon
+}
+
+post_remove() {
+    echo 'The config files under ~/.FeelUOwn should be removed manually by yourself.'
+}
