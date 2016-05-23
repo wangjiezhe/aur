@@ -1,0 +1,45 @@
+# Maintainer: Ondřej Svoboda <ondrej@svobodasoft.cz>
+pkgname=osdlyrics-git
+provides=(osdlyrics)
+conflicts=(osdlyrics osdlyrics-pedrohlc)
+_pkgver=0.5.0
+pkgver=0.5.0.r728.3f4feb1
+pkgrel=1
+pkgdesc="Standalone lyrics fetcher/displayer (windowed and OSD mode). Supports MPRIS1/2 players, and MPD."
+arch=(i686 x86_64)
+url="https://github.com/osdlyrics/osdlyrics"
+license=(GPL3)
+depends=(dbus-glib desktop-file-utils gtk2 hicolor-icon-theme libnotify
+         python2-dbus python2-chardet python2-gobject2 python2-pycurl
+         sqlite)
+makedepends=(intltool)
+optdepends=('gobject-introspection-runtime: proxy detection in Gnome'
+            'kdebindings-python2: proxy detection in KDE'
+            'python2-mpd: to interface with MPD')
+source=("${provides}::git+${url}.git#branch=0.5-series"
+		"0001-add-subdir-objects-to-automake-options.patch")
+md5sums=('SKIP'
+         '67f25cd1e0827689b090c3fefd5fbbef')
+
+pkgver() {
+    cd "$srcdir/$provides"
+    printf "$_pkgver.r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+	cd "$srcdir/$provides"
+	git apply ../0001-add-subdir-objects-to-automake-options.patch
+}
+
+build()
+{
+    cd "$srcdir/$provides"
+    ./autogen.sh --prefix=/usr
+    make
+}
+
+package()
+{
+    cd "$srcdir/$provides"
+    make DESTDIR="$pkgdir" install
+}

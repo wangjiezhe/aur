@@ -1,0 +1,25 @@
+From 0c9e7f71c3da7ff76ba58650f49d7b5c4349ec80 Mon Sep 17 00:00:00 2001
+From: Tiger Soldier <tigersoldi@gmail.com>
+Date: Tue, 23 Jul 2013 23:26:34 -0700
+Subject: [PATCH] add subdir-objects to automake options
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index a0d278d..8fdc6df 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -9,7 +9,7 @@ m4_define(OL_BUILD_VER,
+ 
+ m4_define([OL_VERSION], [OL_MAJOR_VER.OL_MINOR_VER.OL_MICRO_VER[]OL_BUILD[]OL_BUILD_VER])
+ AC_INIT([osdlyrics], [OL_VERSION], [http://code.google.com/p/osd-lyrics/issues/list])
+-AM_INIT_AUTOMAKE([-Wall -Werror])
++AM_INIT_AUTOMAKE([-Wall -Werror subdir-objects])
+ m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+
+ AC_CONFIG_SRCDIR([src/ol_main.c])
+-- 
+2.8.2
+
