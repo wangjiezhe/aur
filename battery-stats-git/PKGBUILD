@@ -2,7 +2,7 @@
 
 pkgname=battery-stats-git
 _pkgname=battery-stats
-pkgver=0.5.1.28.g0186230
+pkgver=0.5.4
 pkgrel=1
 pkgdesc="Log battery charge, show gnuplot graphs."
 arch=('any')
