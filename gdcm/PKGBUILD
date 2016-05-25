@@ -2,7 +2,7 @@
 
 pkgname=gdcm
 pkgver=2.6.3
-pkgrel=1
+pkgrel=4
 pkgdesc='a C++ library for DICOM medical files'
 arch=('i686' 'x86_64')
 url='http://gdcm.sourceforge.net'
@@ -13,20 +13,18 @@ optdepends=('python2: python bindings'
 makedepends=('cmake' 'swig' 'python2' 'java-environment' 'mono')
 source=(
   "https://sourceforge.net/projects/gdcm/files/gdcm%202.x/GDCM%20${pkgver}/gdcm-${pkgver}.tar.bz2"
-  'gdcm-vtk6.patch'
+  'skip-manpages.patch'
 )
 md5sums=('52d398f48e672f1949914f6b3e2d528c'
-         'b1f32c95b3e5414c65966732f535edd8')
+         'e47f24f42dd11b3e6bccff21a95edf3a')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
-
-  patch -Np1 -i ../gdcm-vtk6.patch
+  patch -Np1 -i ../skip-manpages.patch
 }
 
 build() {
   cd "$srcdir"
-
   mkdir -p build && cd build
 
   cmake \
@@ -36,10 +34,12 @@ build() {
     -DGDCM_BUILD_SHARED_LIBS:BOOL=ON \
     -DGDCM_BUILD_TESTING:BOOL=OFF \
     -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DGDCM_DOCUMENTATION_SKIP_MANPAGES:BOOL=ON \
     -DGDCM_WRAP_PYTHON:BOOL=ON \
     -DGDCM_WRAP_CSHARP:BOOL=OFF \
     -DGDCM_WRAP_JAVA:BOOL=ON \
     -DGDCM_USE_VTK:BOOL=OFF \
+    -DGDCM_USE_SYSTEM_LIBXML2=ON \
     -DGDCM_USE_SYSTEM_EXPAT:BOOL=ON \
     -DGDCM_USE_SYSTEM_ZLIB:BOOL=ON \
     -DGDCM_USE_SYSTEM_UUID:BOOL=ON \
@@ -49,6 +49,9 @@ build() {
     -DPYTHON_INCLUDE_DIR:PATH=/usr/include/python2.7 \
     -DPYTHON_LIBRARY:PATH=/usr/lib/libpython2.7.so \
     -DGDCM_VTK_JAVA_JAR:PATH=/usr/share/java/vtk/vtk.jar \
+    -DJavaProp_OS_NAME:STRING=Linux \
+    -DJAVA_AWT_LIBRARY:PATH=/usr/lib/jvm/default \
+    -DJAVA_JVM_LIBRARY:PATH=/usr/lib/jvm/default \
     ../$pkgname-$pkgver
   make
 }
