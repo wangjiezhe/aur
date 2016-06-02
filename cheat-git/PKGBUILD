@@ -9,8 +9,8 @@ pkgdesc="Cheat allows you to create and view interactive cheatsheets on the comm
 arch=('any')
 license=('GPL3')
 url="https://github.com/chrisallenlane/cheat"
-depends=('python' 'python-docopt')
-optdepends=('python-pygments')
+depends=('python2' 'python2-docopt')
+optdepends=('python2-pygments')
 makedepends=('git')
 source=("$pkgname::git+https://github.com/chrisallenlane/cheat.git")
 md5sums=('SKIP')
@@ -23,5 +23,5 @@ pkgver() {
 
 package(){
     cd "$pkgname"
-    python setup.py install --root="$pkgdir" --optimize=1
+    python2 setup.py install --root="$pkgdir"
 }
