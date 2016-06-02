@@ -16,6 +16,11 @@ pkgver() {
   git describe --tags | sed 's/-/./g'
 }
 
+prepare() {
+  cd "$srcdir/$_pkgname"
+  sed -i "s|http://|https://|g" pcs/pcs.c
+}
+
 build() {
   cd "$srcdir/$_pkgname"
   make
