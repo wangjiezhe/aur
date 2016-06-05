@@ -26,28 +26,24 @@ prepare() {
 
 build() {
         cd "${srcdir}/${_pkgbase}"
-        #python setup.py build_ext --inplace -f
         python setup.py build
 
         cd "${srcdir}/${_pkgbase}"-py2
-        #python2 setup.py build_ext --inplace -f
         python2 setup.py build
 }
 
 package_python-pyjnius-git() {
         depends=('python')
+
         cd "${srcdir}/${_pkgbase}"
-        export PYTHONPATH="$pkgdir/usr/lib/python3.5/site-packages"
-        mkdir -p "$PYTHONPATH"
         python setup.py install --root="$pkgdir/" --optimize=1
         rm -rf "$pkgdir/usr/bin"
 }
 
 package_python2-pyjnius-git() {
         depends=('python2')
+
         cd "${srcdir}/${_pkgbase}"
-        export PYTHONPATH="$pkgdir/usr/lib/python2.7/site-packages"
-        mkdir -p "$PYTHONPATH"
         python2 setup.py install --root="$pkgdir/" --optimize=1
         rm -rf "$pkgdir/usr/bin"
 }
