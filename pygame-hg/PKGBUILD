@@ -1,0 +1,56 @@
+# Maintainer: KlipperKyle <kyleterrien at gmail dot com>
+# Former maintainer: speps <speps at aur dot archlinux dot org>
+
+_pkgbase=pygame
+pkgbase=pygame-hg
+pkgname=(python-${pkgbase} python2-${pkgbase})
+pkgver=r3536.594db78c15c8
+pkgrel=1
+pkgdesc="Python game library"
+arch=(i686 x86_64)
+url="http://pygame.org/"
+license=('LGPL')
+depends=('python' 'libjpeg-turbo' 'sdl_ttf'
+         'sdl_image' 'sdl_mixer' 'portmidi')
+makedepends=('mercurial' 'python-setuptools' 'python2-setuptools')
+source=("${_pkgbase}::hg+https://bitbucket.org/pygame/pygame")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "${srcdir}/${_pkgbase}"
+  printf "r%s.%s" "$(hg identify -n)" "$(hg identify -i)"
+}
+
+prepare() {
+  cp -a "${srcdir}/${_pkgbase}"{,-py2}
+}
+
+build() {
+  cd "${srcdir}/${_pkgbase}"
+  python config.py -auto
+  python setup.py build
+
+  cd "${srcdir}/${_pkgbase}-py2"
+  python2 config.py -auto
+  python2 setup.py build
+}
+
+package_python-pygame-hg() {
+  provides=('python-pygame')
+  conflicts=('python-pygame')
+
+  cd ${srcdir}/${_pkgbase}
+  python setup.py install --prefix=/usr \
+                          --root="$pkgdir/"
+}
+
+package_python2-pygame-hg() {
+  provides=('python2-pygame')
+  conflicts=('python2-pygame')
+
+  cd "${srcdir}/${_pkgbase}-py2"
+  python2 setup.py install --prefix=/usr \
+                          --root="$pkgdir/"
+}
+
+# vim:set ts=2 sw=2 et:
