@@ -24,14 +24,6 @@ prepare() {
         cp -a "${srcdir}/${_pkgbase}"{,-py2}
 }
 
-build() {
-        cd "${srcdir}/${_pkgbase}"
-        python setup.py build
-
-        cd "${srcdir}/${_pkgbase}"-py2
-        python2 setup.py build
-}
-
 package_python-pyjnius-git() {
         depends=('python')
 
