@@ -10,7 +10,7 @@ pkgdesc="Python game library"
 arch=(i686 x86_64)
 url="http://pygame.org/"
 license=('LGPL')
-depends=('python' 'libjpeg-turbo' 'sdl_ttf'
+depends=('libjpeg-turbo' 'sdl_ttf'
          'sdl_image' 'sdl_mixer' 'portmidi')
 makedepends=('mercurial' 'python-setuptools' 'python2-setuptools')
 source=("${_pkgbase}::hg+https://bitbucket.org/pygame/pygame")
@@ -36,6 +36,7 @@ build() {
 }
 
 package_python-pygame-hg() {
+  depends=('python')
   provides=('python-pygame')
   conflicts=('python-pygame')
 
@@ -45,6 +46,7 @@ package_python-pygame-hg() {
 }
 
 package_python2-pygame-hg() {
+  depends=('python2')
   provides=('python2-pygame')
   conflicts=('python2-pygame')
 
