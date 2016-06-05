@@ -1,0 +1,53 @@
+_pkgbase=pyjnius
+pkgbase=pyjnius-git
+pkgname=(python-${pkgbase} python2-${pkgbase})
+pkgver=r289.98596b3
+pkgrel=1
+pkgdesc='Python module to access Java class as Python class, using JNI.'
+arch=('i686' 'x86_64')
+url="https://github.com/kivy/${_pkgbase}"
+license=('LGPL3')
+depends=('java-environment')
+makedepends=('cython' 'perl')
+source=("${_pkgbase}::git+${url}.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "${srcdir}/${_pkgbase}"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+        perl -p -i -e 's|raise SystemError\("JAVA_HOME is not set."\)|JAVA_HOME = "/usr/lib/jvm/default"|g' ${srcdir}/${_pkgbase}/jnius/jnius_jvm_dlopen.pxi
+        perl -p -i -e 's|from .jnius import |import os\nos.environ["JAVA_HOME"]="/usr/lib/jvm/default"\nfrom .jnius import |' ${srcdir}/${_pkgbase}/jnius/__init__.py
+
+        cp -a "${srcdir}/${_pkgbase}"{,-py2}
+}
+
+build() {
+        cd "${srcdir}/${_pkgbase}"
+        #python setup.py build_ext --inplace -f
+        python setup.py build
+
+        cd "${srcdir}/${_pkgbase}"-py2
+        #python2 setup.py build_ext --inplace -f
+        python2 setup.py build
+}
+
+package_python-pyjnius-git() {
+        depends=('python')
+        cd "${srcdir}/${_pkgbase}"
+        export PYTHONPATH="$pkgdir/usr/lib/python3.5/site-packages"
+        mkdir -p "$PYTHONPATH"
+        python setup.py install --root="$pkgdir/" --optimize=1
+        rm -rf "$pkgdir/usr/bin"
+}
+
+package_python2-pyjnius-git() {
+        depends=('python2')
+        cd "${srcdir}/${_pkgbase}"
+        export PYTHONPATH="$pkgdir/usr/lib/python2.7/site-packages"
+        mkdir -p "$PYTHONPATH"
+        python2 setup.py install --root="$pkgdir/" --optimize=1
+        rm -rf "$pkgdir/usr/bin"
+}
