@@ -25,24 +25,13 @@ prepare() {
   cp -a "${srcdir}/${_pkgbase}"{,-py2}
 }
 
-build() {
-  cd "${srcdir}/${_pkgbase}"
-  python config.py -auto
-  python setup.py build
-
-  cd "${srcdir}/${_pkgbase}-py2"
-  python2 config.py -auto
-  python2 setup.py build
-}
-
 package_python-pygame-hg() {
   depends=('python')
   provides=('python-pygame')
   conflicts=('python-pygame')
 
   cd ${srcdir}/${_pkgbase}
-  python setup.py install --prefix=/usr \
-                          --root="$pkgdir/"
+  python setup.py install --root="$pkgdir/" --optimize=1
 }
 
 package_python2-pygame-hg() {
@@ -51,8 +40,7 @@ package_python2-pygame-hg() {
   conflicts=('python2-pygame')
 
   cd "${srcdir}/${_pkgbase}-py2"
-  python2 setup.py install --prefix=/usr \
-                          --root="$pkgdir/"
+  python2 setup.py install --root="$pkgdir/" --optimize=1
 }
 
 # vim:set ts=2 sw=2 et:
