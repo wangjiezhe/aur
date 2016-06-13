@@ -1,0 +1,41 @@
+# Maintainer: wangjiezhe <wangjiezhe AT yandex DOT com>
+
+pkgbase=pika
+pkgname=(python-${pkgbase} python2-${pkgbase})
+pkgver=0.10.0
+pkgrel=1
+pkgdesc="Pure Python RabbitMQ/AMQP 0-9-1 client library"
+arch=('any')
+url="https://github.com/pika/pika"
+license=('BSD-3')
+makedepends=('python-setuptools' 'python2-setuptools')
+source=(${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz)
+md5sums=('b79348b22cf05ccb5519c1b66839360b')
+
+prepare() {
+  cp -a "$srcdir/$pkgbase-$pkgver"{,-py2}
+}
+
+check() {
+  cd "$srcdir/$pkgbase-$pkgver"
+  python setup.py test
+
+  cd "$srcdir/$pkgbase-$pkgver-py2"
+  python2 setup.py test
+}
+
+package_python-pika() {
+  depends=('python')
+  checkdepends=('python-twisted' 'python-tornado')
+  cd "$srcdir/$pkgbase-$pkgver"
+  python setup.py install --root="$pkgdir/" --optimize=1
+}
+
+package_python2-pika() {
+  depends=('python2')
+  checkdepends=('python2-twisted' 'python2-tornado')
+  cd "$srcdir/$pkgbase-$pkgver"
+  python2 setup.py install --root="$pkgdir/" --optimize=1
+}
+
+# vim:set ts=2 sw=2 et:
