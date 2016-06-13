@@ -1,10 +1,9 @@
 # Maintainer: wangjiezhe <wangjiezhe AT yandex DOT com>
 
-pkgbase=elasticsearch
-_pkgbase=elasticsearch-py
-pkgname=(python-${pkgbase} python2-${pkgbase})
+pkgbase=elasticsearch-py
+pkgname=(python-elasticsearch python2-elasticsearch)
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Official Python low-level client for Elasticsearch"
 arch=('any')
 url="https://github.com/elastic/elasticsearch-py"
@@ -14,18 +13,18 @@ source=(${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz)
 md5sums=('271c228d5ce5794ec47773935f82295d')
 
 prepare() {
-  cp -a "$srcdir/$_pkgbase-$pkgver"{,-py2}
+  cp -a "$srcdir/$pkgbase-$pkgver"{,-py2}
 }
 
 package_python-elasticsearch() {
   depends=('python-urllib3')
-  cd "$srcdir/$_pkgbase-$pkgver"
+  cd "$srcdir/$pkgbase-$pkgver"
   python setup.py install --root="$pkgdir/" --optimize=1
 }
 
 package_python2-elasticsearch() {
   depends=('python2-urllib3')
-  cd "$srcdir/$_pkgbase-$pkgver"
+  cd "$srcdir/$pkgbase-$pkgver"
   python2 setup.py install --root="$pkgdir/" --optimize=1
 }
 
