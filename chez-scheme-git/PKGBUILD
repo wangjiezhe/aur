@@ -3,7 +3,7 @@
 _pkgname=ChezScheme
 pkgname=chez-scheme-git
 _pkgver=9.4.1
-pkgver=9.4.1.r75.dd1b741
+pkgver=9.4.1.r77.f6b01a4
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
