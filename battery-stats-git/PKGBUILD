@@ -2,7 +2,7 @@
 
 pkgname=battery-stats-git
 _pkgname=battery-stats
-pkgver=0.5.4.6.g8398c63
+pkgver=0.5.5
 pkgrel=1
 pkgdesc="Log battery charge, show gnuplot graphs."
 arch=('any')
@@ -17,7 +17,7 @@ sha256sums=('SKIP'
 
 pkgver() {
   cd ${_pkgname}
-  git describe | sed "s/-/./g"
+  git describe --tags | sed "s/-/./g"
 }
 
 prepare() {
