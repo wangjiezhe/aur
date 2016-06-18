@@ -24,7 +24,7 @@ fi
 
 if test -z "$version"
 then
-        version=$(sed -n 's/^pkgver=\([0-9.]\+\)/\1/p' $pkgpath/PKGBUILD)
+        version=$(sed -n 's/^pkgver=\([r0-9.]\+\)/\1/p' $pkgpath/PKGBUILD)
 fi
 
 if test -z "$release"
