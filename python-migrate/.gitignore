@@ -1,0 +1,7 @@
+*~
+\#*\#
+.\#*
+/pkg/
+/src/
+python-migrate-*
+*.tar.xz
