@@ -4,7 +4,7 @@
 _pkgbase=pygame
 pkgbase=pygame-hg
 pkgname=(python-${pkgbase} python2-${pkgbase})
-pkgver=r3538.dd457c258b3e
+pkgver=r3547.bf4440a87677
 pkgrel=1
 pkgdesc="Python game library"
 arch=(i686 x86_64)
