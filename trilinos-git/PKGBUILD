@@ -12,7 +12,7 @@ depends=('lapack' 'openmpi' 'python2' 'boost')
 provides=('trilinos')
 conflicts=('trilinos' 'gtest')
 source=(git+${url}.git)
-makedepends=('python2' 'python2-numpy' 'swig' 'gcc' 'gcc-fortran' 'openmpi' 'perl' 'blas' 'lapack' 'cmake' 'libmatio' 'netcdf')
+makedepends=('git' 'python2' 'python2-numpy' 'swig' 'gcc' 'gcc-fortran' 'openmpi' 'perl' 'blas' 'lapack' 'cmake' 'libmatio' 'netcdf')
 # gcc-fortran gcc-fortran-multilib
 md5sums=('SKIP')
 
@@ -41,7 +41,7 @@ build() {
       -DTrilinos_ENABLE_ALL_PACKAGES:BOOL=ON \
       -DTrilinos_ENABLE_FEI=OFF \
       -DTrilinos_ENABLE_STKClassic=OFF \
-      -DTrilinos_ENABLE_SEACAS=OFF     \
+      -DTrilinos_ENABLE_SEACAS=ON     \
       -DTrilinos_ENABLE_Sundance=OFF \
       -DTrilinos_ENABLE_TESTS=OFF \
       -DTrilinos_ENABLE_OpenMP:BOOL=ON \
@@ -53,7 +53,6 @@ build() {
       -DTPL_ENABLE_QT=OFF              \
       -DTPL_ENABLE_GLM=OFF              \
       -DBUILD_SHARED_LIBS:BOOL=ON \
-      -DTrilinos_ENABLE_SEACAS:BOOL=ON
       $EXTRA_ARGS
 
   make
