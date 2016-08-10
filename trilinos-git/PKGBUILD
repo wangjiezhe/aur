@@ -2,7 +2,7 @@
 # Contributor: Feng Wang <wanng.fenng@gmail.com>
 pkgname=trilinos-git
 _pkgname=Trilinos
-pkgver=r71192.7a8d838
+pkgver=r71238.5a70bf2
 pkgrel=1
 pkgdesc="An effort to develop algorithms and enabling technologies within an object-oriented software framework for the solution of large-scale, complex multi-physics engineering and scientific problems."
 arch=('i686' 'x86_64')
@@ -15,6 +15,7 @@ source=(git+${url}.git)
 makedepends=('git' 'python2' 'python2-numpy' 'swig' 'gcc' 'gcc-fortran' 'openmpi' 'perl' 'blas' 'lapack' 'cmake' 'libmatio' 'netcdf')
 # gcc-fortran gcc-fortran-multilib
 md5sums=('SKIP')
+options=('ccache')
 
 pkgver() {
   cd "${srcdir}/${_pkgname}"
