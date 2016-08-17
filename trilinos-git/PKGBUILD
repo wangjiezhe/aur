@@ -1,8 +1,10 @@
 # Maintainer: Myles English <myles at rockhead.biz>
 # Contributor: Feng Wang <wanng.fenng@gmail.com>
+# Contributor: wangjiezhe <wangjiezhe AT yandex DOT com>
+
 pkgname=trilinos-git
 _pkgname=Trilinos
-pkgver=r71238.5a70bf2
+pkgver=r71307.22496b4
 pkgrel=1
 pkgdesc="An effort to develop algorithms and enabling technologies within an object-oriented software framework for the solution of large-scale, complex multi-physics engineering and scientific problems."
 arch=('i686' 'x86_64')
@@ -23,9 +25,6 @@ pkgver() {
 }
 
 build() {
-  #export CFLAGS="$CFLAGS -g -O1"
-  #export CXXFLAGS="$CXXFLAGS -g -O1"
-
   cd "$srcdir/${_pkgname}"
 
   find ${srcdir}/${_pkgname} -name "*" -type f -exec \
@@ -66,7 +65,4 @@ package() {
     mkdir -p "${pkgdir}/etc/profile.d"
     echo "export TRILINOS_DIR=/opt/trilinos" > "${pkgdir}/etc/profile.d/trilinos.sh"
     chmod +x "${pkgdir}/etc/profile.d/trilinos.sh"
-
-    # header confilcts with openmpi
-#    rm "${pkgdir}/usr/include/mpi.h"
 }
