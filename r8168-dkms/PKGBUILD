@@ -35,5 +35,6 @@ package() {
 
 	cd "${_pkgbase}-$pkgver"
 	rm src/Makefile_linux24x
-	cp -dr --no-preserve='ownership' src "${pkgdir}/usr/src/${_pkgbase}-${pkgver}/src"
+	install -Dm644 -t "${pkgdir}/usr/src/${_pkgbase}-${pkgver}/src" \
+		src/*
 }
