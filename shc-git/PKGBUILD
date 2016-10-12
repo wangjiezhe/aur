@@ -2,7 +2,7 @@
 
 pkgname=shc-git
 _pkgname=shc
-pkgver=3.9.3.1.g3870263
+pkgver=3.9.3.8.g4bce91e
 pkgrel=1
 pkgdesc="A generic shell script compiler."
 arch=('any')
