@@ -1,7 +1,7 @@
 _pkgbase=pyjnius
 pkgbase=pyjnius-git
 pkgname=(python-${pkgbase} python2-${pkgbase})
-pkgver=r289.98596b3
+pkgver=r291.b5a1ecb
 pkgrel=1
 pkgdesc='Python module to access Java class as Python class, using JNI.'
 arch=('i686' 'x86_64')
