@@ -1,6 +1,6 @@
 _pkgbase=r8168
 pkgname=${_pkgbase}-dkms
-pkgver=8.043.01
+pkgver=8.043.02
 pkgrel=1
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
@@ -11,8 +11,10 @@ conflicts=("${_pkgbase}")
 optdepends=('linux-headers: Build the module for Arch kernel'
             'linux-lts-headers: Build the module for LTS Arch kernel')
 source=(https://github.com/mtorromeo/r8168/archive/$pkgver/r8168-$pkgver.tar.gz
+        'linux-4.5.patch'
         'dkms.conf')
-sha256sums=('517ec3fe3c4d25476f6b7b2bd59c3dee548b8dddfe96d2bbc58f65859155142e'
+sha256sums=('ea22aa1dfda20615f5e114f982f7e61385f871f682eea0c154245760a439abc4'
+            '08b0adf0c2a90b1f79cf37f62c70ed6d09aead60ade15efb66c8430959fb5e4b'
             '260d8142e944f3144cbc704534e662d427318d8b32dc7a2852a855be72e8d763')
 
 package() {
