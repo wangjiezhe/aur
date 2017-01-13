@@ -2,15 +2,15 @@
 
 pkgbase=elasticsearch-py
 pkgname=(python-elasticsearch python2-elasticsearch)
-pkgver=5.0.1
-pkgrel=2
+pkgver=5.1.0
+pkgrel=1
 pkgdesc="Official Python low-level client for Elasticsearch"
 arch=('any')
 url="https://github.com/elastic/elasticsearch-py"
 license=('Apache')
 makedepends=('python-setuptools' 'python2-setuptools')
 source=(${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz)
-md5sums=('dea2081c365d6aaad395d641b764d42c')
+md5sums=('b5b7131677266bf7ae2ecfab09433d93')
 
 prepare() {
   cp -a "$srcdir/$pkgbase-$pkgver"{,-py2}
