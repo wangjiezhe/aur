@@ -3,7 +3,7 @@
 _pkgname=ChezScheme
 pkgname=chez-scheme-git
 _pkgver=9.4.1
-pkgver=r128.e09139a
+pkgver=r136.a2a6637
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
@@ -31,7 +31,7 @@ prepare() {
 
 build() {
   cd ${_pkgname}
-  ./configure --installprefix=/usr --temproot=$pkgdir --threads
+  ./configure --installprefix=/usr --temproot=${pkgdir} --threads
   make
   make docs
 }
