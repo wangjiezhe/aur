@@ -5,3 +5,7 @@
 *.swp
 .ropeproject/
 *_ver.txt
+*/src/
+*/pkg/
+*/*.tar.xz
+*/*.tar.gz
