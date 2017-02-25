@@ -2,9 +2,8 @@
 Description=Collect battery statistics
 
 [Service]
-Type=simple
-PIDFile=/var/run/battery-stats-collector.pid
-ExecStart=/usr/bin/battery-stats-collector
+Type=oneshot
+ExecStart=/usr/bin/battery-stats-collector -1
 
 [Install]
 WantedBy=multi-user.target

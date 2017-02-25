@@ -11,9 +11,11 @@ license=('GPLv2')
 provides=('battery-stats')
 conflicts=('battery-stats')
 source=("${_pkgname}::git+https://github.com/petterreinholdtsen/battery-stats.git"
-        "battery-stats-collector.service")
+        "battery-stats-collector.service"
+        "battery-stats-collector.timer")
 sha256sums=('SKIP'
-            '458937c0f81d21b45a6687a6a5155a3a3866d46d65203fb174ccc020fc612edf')
+            '8d82053d545532b3b7c646cb9d4e840f160ee9aa2572355a8f218ee43db01e7c'
+            '8885fc7512936a918a44a864a0ebc371b0394859132752419414fbbc2383d0f1')
 
 pkgver() {
   cd ${_pkgname}
@@ -37,6 +39,7 @@ build() {
 
 package() {
   install -Dm644 battery-stats-collector.service ${pkgdir}/usr/lib/systemd/system/battery-stats-collector.service
+  install -Dm644 battery-stats-collector.timer ${pkgdir}/usr/lib/systemd/system/battery-stats-collector.timer
   cd build
   make DESTDIR="${pkgdir}" install
 }
