@@ -3,7 +3,7 @@
 _pkgname=ChezScheme
 pkgname=chez-scheme-git
 _pkgver=9.4.1
-pkgver=r162.1a05b09
+pkgver=r167.cb48dbb
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
@@ -26,7 +26,7 @@ pkgver() {
 prepare() {
   cd ${_pkgname}
   sed -i "s/ln -sf/ln -f/g" makefiles/Mf-install.in
-  sed -i "s/\\\INSERTREVISIONMONTHSPACEYEAR/May 2016/g" csug/{csug,copyright}.stex
+  sed -i "s/\\\INSERTREVISIONMONTHSPACEYEAR/March 2017/g" csug/{csug,copyright}.stex
 }
 
 build() {
