@@ -3,7 +3,7 @@
 _pkgname=ChezScheme
 pkgname=chez-scheme-git
 _pkgver=9.4.1
-pkgver=r207.b395a76
+pkgver=r211.295b091
 pkgrel=1
 pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
 arch=(i686 x86_64)
@@ -34,27 +34,27 @@ build() {
   ./configure --installprefix=/usr --temproot=${pkgdir} --threads \
     CFLAGS='-Wimplicit-fallthrough=0'
   make
-  make docs
+#  make docs
 }
 
 package() {
   cd ${_pkgname}
   make DESTDIR=${pkgdir} install InstallSchemeName=chez-scheme
 
-  docdir=${pkgdir}/usr/share/doc/chez-scheme
-  install -Dm644 -t ${docdir} \
-          csug/csug.pdf release_notes/release_notes.pdf
-  install -Dm644 -t ${docdir}/html/release_notes \
-          release_notes/{release_notes.html,releasenotes.css}
-  install -Dm644 -t ${docdir}/html/csug \
-          csug/{*.html,*.css}
-  install -Dm644 -t ${docdir}/html/csug/canned \
-          csug/canned/*
-  install -Dm644 -t ${docdir}/html/csug/gifs \
-          csug/gifs/*.gif
-  install -Dm644 -t ${docdir}/html/csug/math/csug \
-          csug/math/csug/*.gif
-  ln -f ${docdir}/html/csug/{csug,index}.html
+#  docdir=${pkgdir}/usr/share/doc/chez-scheme
+#  install -Dm644 -t ${docdir} \
+#          csug/csug.pdf release_notes/release_notes.pdf
+#  install -Dm644 -t ${docdir}/html/release_notes \
+#          release_notes/{release_notes.html,releasenotes.css}
+#  install -Dm644 -t ${docdir}/html/csug \
+#          csug/{*.html,*.css}
+#  install -Dm644 -t ${docdir}/html/csug/canned \
+#          csug/canned/*
+#  install -Dm644 -t ${docdir}/html/csug/gifs \
+#          csug/gifs/*.gif
+#  install -Dm644 -t ${docdir}/html/csug/math/csug \
+#          csug/math/csug/*.gif
+#  ln -f ${docdir}/html/csug/{csug,index}.html
 }
 
 # vim:set ts=2 sw=2 et:
