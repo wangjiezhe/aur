@@ -2,7 +2,7 @@
 
 _pkgname=fceux
 pkgname=fceux-svn
-pkgver=3343
+pkgver=3372
 pkgrel=1
 pkgdesc="Fast and ultra-compatible NES/Famicom emulator with SDL, OpenGL and SVGALIB support"
 arch=('i686' 'x86_64')
