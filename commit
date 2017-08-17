@@ -36,7 +36,7 @@ fi
 git add $pkgpath
 git commit -m "$pkgname $version-$release"
 
-if test -n $in_dir
+if test -z $in_dir
 then
     nvtake nvchecker.ini $pkgpath
 fi
