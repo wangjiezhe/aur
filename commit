@@ -2,13 +2,13 @@
 
 usage()
 {
-        echo "usage: $(basename $0) pkgpath [version] [release]" >&2
+    echo "usage: $(basename $0) pkgpath [version] [release]" >&2
 }
 
 if test $# -lt 1 -o $# -gt 2
 then
-        usage
-        exit 1
+    usage
+    exit 1
 fi
 
 pkgpath=$1
@@ -18,20 +18,25 @@ release=$3
 if test "$pkgpath" = "."
 then
     pkgname=${PWD##*/}
+    in_dir=1
 else
     pkgname=${pkgpath##*/}
 fi
 
 if test -z "$version"
 then
-        version=$(sed -n 's/^pkgver=\([r0-9.]\+\)/\1/p' $pkgpath/PKGBUILD)
+    version=$(sed -n 's/^pkgver=\([r0-9.]\+\)/\1/p' $pkgpath/PKGBUILD)
 fi
 
 if test -z "$release"
 then
-        release=$(sed -n 's/^pkgrel=\([0-9]\+\)/\1/p' $pkgpath/PKGBUILD)
+    release=$(sed -n 's/^pkgrel=\([0-9]\+\)/\1/p' $pkgpath/PKGBUILD)
 fi
-
 
 git add $pkgpath
 git commit -m "$pkgname $version-$release"
+
+if test -n $in_dir
+then
+    nvtake nvchecker.ini $pkgpath
+fi
