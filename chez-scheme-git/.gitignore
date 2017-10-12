@@ -4,4 +4,7 @@
 /pkg/
 /src/
 /ChezScheme
+/zlib
+/nanopass-*
+/stex
 *.tar.xz

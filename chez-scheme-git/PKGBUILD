@@ -1,59 +1,49 @@
-# Maintainer: wangjiezhe <wangjiezhe AT yandex DOT com>
+# Maintainer: Peter Feigl <>
+# Contributor: Jonathon Fernyhough <>
 
-_pkgname=ChezScheme
 pkgname=chez-scheme-git
-_pkgver=9.4.1
-pkgver=r258.b790996
+_pkgname=ChezScheme
+pkgver=r269.35ea194
 pkgrel=1
-pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extension. (threaded build)"
+pkgdesc="Chez Scheme is an implementation of the Revised6 Report on Scheme [27] (R6RS) with numerous language and programming environment extensions. (threaded build)"
 arch=(i686 x86_64)
 url="https://github.com/cisco/ChezScheme"
 license=('APL')
 makedepends=('git' 'ncurses' 'libx11' 'xproto')
-options=('!ccache')
 provides=(chez-scheme)
 conflicts=(petite-chez-scheme)
 replaces=(petite-chez-scheme)
-source=(${_pkgname}::git+https://github.com/cisco/ChezScheme.git)
-md5sums=('SKIP')
+source=('git+https://github.com/cisco/ChezScheme.git'
+        'git+https://github.com/nanopass/nanopass-framework-scheme.git'
+        'git+https://github.com/dybvig/stex.git'
+        'git+https://github.com/madler/zlib.git')
+md5sums=('SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP')
 
 pkgver() {
-  cd ${_pkgname}
-  # git describe --tags --long | sed 's/^v//g;s/-/./g'
+  cd "$_pkgname"
   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 prepare() {
-  cd ${_pkgname}
-  sed -i "s/ln -sf/ln -f/g" makefiles/Mf-install.in
-  sed -i "s/\\\INSERTREVISIONMONTHSPACEYEAR/March 2017/g" csug/{csug,copyright}.stex
+  cd "$_pkgname"
+  rmdir nanopass stex zlib
+  ln -s ../nanopass-framework-scheme nanopass
+  ln -s ../stex
+  ln -s ../zlib
+
+  # glibc=2.26 dropped xlocale.h, this is a hacky workaround
+  cp /usr/include/locale.h zlib/xlocale.h
 }
 
 build() {
-  cd ${_pkgname}
-  ./configure --installprefix=/usr --temproot=${pkgdir} --threads
+  cd "$_pkgname"
+  ./configure --installprefix=/usr --temproot="$pkgdir" --threads
   make
-#  make docs
 }
 
 package() {
-  cd ${_pkgname}
-  make DESTDIR=${pkgdir} install InstallSchemeName=chez-scheme
-
-#  docdir=${pkgdir}/usr/share/doc/chez-scheme
-#  install -Dm644 -t ${docdir} \
-#          csug/csug.pdf release_notes/release_notes.pdf
-#  install -Dm644 -t ${docdir}/html/release_notes \
-#          release_notes/{release_notes.html,releasenotes.css}
-#  install -Dm644 -t ${docdir}/html/csug \
-#          csug/{*.html,*.css}
-#  install -Dm644 -t ${docdir}/html/csug/canned \
-#          csug/canned/*
-#  install -Dm644 -t ${docdir}/html/csug/gifs \
-#          csug/gifs/*.gif
-#  install -Dm644 -t ${docdir}/html/csug/math/csug \
-#          csug/math/csug/*.gif
-#  ln -f ${docdir}/html/csug/{csug,index}.html
+  make -C "$_pkgname" DESTDIR="$pkgdir"/ install InstallSchemeName=chez-scheme
 }
-
-# vim:set ts=2 sw=2 et:
