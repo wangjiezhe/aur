@@ -2,7 +2,7 @@
 
 pkgbase=pika
 pkgname=(python-${pkgbase} python2-${pkgbase})
-pkgver=1.0.1
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Pure Python RabbitMQ/AMQP 0-9-1 client library"
 arch=('any')
@@ -10,7 +10,7 @@ url="https://github.com/pika/pika"
 license=('BSD-3')
 makedepends=('python-setuptools' 'python2-setuptools')
 source=(${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz)
-md5sums=('01c919d8912a7d886e655e1a215a45a1')
+md5sums=('6ddb811de87728794066bf649ae17edf')
 
 prepare() {
   cp -a "$srcdir/$pkgbase-$pkgver"{,-py2}
