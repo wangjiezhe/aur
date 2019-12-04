@@ -2,14 +2,14 @@
 
 _pkgname=fceux
 pkgname=fceux-svn
-pkgver=3385
+pkgver=3396
 pkgrel=1
 pkgdesc="Fast and ultra-compatible NES/Famicom emulator with SDL, OpenGL and SVGALIB support"
 arch=('x86_64')
 url="http://fceux.com/"
 license=('GPL')
 depends=('sdl' 'lua51' 'gtk2' 'gd' 'libgl')
-makedepends=('subversion' 'scons' 'libgl' 'glu')
+makedepends=('subversion' 'python2-scons' 'libgl' 'glu')
 optdepends=('xchm: for viewing the help manual')
 provides=('fceu' 'gfceux' 'fceux')
 conflicts=('fceu' 'gfceux' 'fceux')
@@ -29,7 +29,7 @@ prepare() {
 build(){
   cd ${_pkgname}-build
 
-  scons RELEASE=1
+  scons2 RELEASE=1
 }
 
 package() {
